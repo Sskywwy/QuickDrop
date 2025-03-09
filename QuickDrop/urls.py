@@ -16,7 +16,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from QuickDropApp import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', views.index,),
+    path('page1/', views.page1,),
+    path('page2/', views.page2,),
+    path('page3/', views.page3,),
+
 ]
