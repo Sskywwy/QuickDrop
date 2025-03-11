@@ -15,14 +15,13 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from QuickDropApp import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.index,),
-    path('page1/', views.page1,),
-    path('page2/', views.page2,),
-    path('page3/', views.page3,),
+    #path('', views.index,),
+    path('api/', include('QuickDropApp.urls')),
+
 
 ]

@@ -1,13 +1,19 @@
 from django.shortcuts import render
-
+from rest_framework.parsers import MultiPartParser, FormParser
+from rest_framework.response import Response
+from rest_framework import generics
+from .models import File
+from .serializers import FileSerializer
 def index(request):
     return render(request, 'index.html')
 
-def page1(request):
-    return render(request, 'page1.html')
-def page2(request):
-    return render(request, 'page2.html')
+class FileUploadView(generics.CreateAPIView):
+    parser_classes = (MultiPartParser, FormParser)
+    serializer_class = FileSerializer
+    queryset = File.objects.all()
 
-def page3(request):
-    return render(request, 'page3.html')
+class FileRetrieveView(generics.RetrieveAPIView):
+    serializer_class = FileSerializer
+    queryset = File.objects.all()
+    lookup_field = 'id'
 # Create your views here.
