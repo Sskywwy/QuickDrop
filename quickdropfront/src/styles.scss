@@ -1,5 +1,29 @@
 /* You can add global styles to this file, and also import other style files */
-@import "tailwindcss";
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "fonts.scss";
+
+:root{
+    --dark-bg: #0a0a0f;
+    --dark-blue: #121b30;
+    --dark-purple: #1f1c2e;
+    --accent-color: #4a6ee0;
+    --text-color: #f0f0f0;
+    --glow-color: #4a6de080 ;
+}
+body {
+    background: var(--dark-bg);
+    color: var(--text-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+h1 {
+    font-family: 'Open Sans';
+    letter-spacing: 12px;
+    font-weight: bold;
+    font-size: 40px;
+    text-shadow: var(--text-color) 0px 0px 7px;
+    padding: 0px;
+    margin: 0px;
+    margin-top: 10px;
+}

@@ -1,0 +1,51 @@
+import { Component } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+
+@Component({
+  selector: 'app-file-upload',
+  templateUrl: './file-upload.component.html',
+  styleUrls: ['./file-upload.component.scss']
+})
+export class FileUploadComponent {
+  isDragging = false;
+  selectedFile: File | null = null;
+
+  constructor(private http: HttpClient) {}
+
+  onDragOver(event: DragEvent) {
+    event.preventDefault();
+    this.isDragging = true;
+  }
+
+  onDragLeave(event: DragEvent) {
+    event.preventDefault();
+    this.isDragging = false;
+  }
+
+  onDrop(event: DragEvent) {
+    event.preventDefault();
+    this.isDragging = false;
+
+    if (event.dataTransfer?.files.length) {
+      this.selectedFile = event.dataTransfer.files[0];
+      this.uploadFile();
+    }
+  }
+
+  onFileSelected(event: any) {
+    this.selectedFile = event.target.files[0];
+    this.uploadFile();
+  }
+
+  uploadFile() {
+    if (!this.selectedFile) return;
+
+    const formData = new FormData();
+    formData.append('file', this.selectedFile);
+
+    this.http.post('/api/upload/', formData).subscribe({
+      next: (res) => console.log('✅ Завантажено:', res),
+      error: (err) => console.error('❌ Помилка:', err),
+    });
+  }
+}

@@ -3,11 +3,10 @@ import { RouterOutlet } from '@angular/router';
 import { FileUploadComponent } from './components/file-upload/file-upload.component';
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, FileUploadComponent],
+  imports: [FileUploadComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
   title = 'quickdropfront';
 }
-

@@ -1,30 +1,55 @@
-import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, input } from '@angular/core';
 
 @Component({
   selector: 'app-file-upload',
-  standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './file-upload.component.html',
   styleUrl: './file-upload.component.scss'
 })
 export class FileUploadComponent {
-  selectedFile: File | null = null;
+  selectfile: File | null = null;
+  isDragging = false;
+  
+  onDragEnter(event: DragEvent): void {
+    event.preventDefault();
+    this.isDragging = true;
+  }
+  onDragOver(event: DragEvent): void {
+    event.preventDefault();
+    this.isDragging = true;
 
-  onFileChange(event: any): void {
-    const file = event.target.files[0];
-    if (file) {
-      this.selectedFile = file;
+  }
+
+  clearFileInput(): void {
+    this.selectfile = null;
+  }
+  onDragLeave (event: DragEvent) {
+    event.preventDefault()
+    this.isDragging = false
+  }
+
+  onDrop (event: DragEvent) {
+    event.preventDefault()
+    console.log('➡️ onDragEnter', event);
+    this.isDragging = false
+
+    if (event.dataTransfer?.files.length) {
+      this.selectfile = event.dataTransfer.files[0];
+      console.log("Файл Вибраний: ", this.selectfile);
+    }
+  }
+  onFileSelected(event: Event): void {
+    const input= event.target as HTMLInputElement;
+    if (input.files && input.files.length) {
+      this.selectfile = input.files[0];
+      console.log("Файл Вибраний: ", this.selectfile);
+  
     }
   }
 
-  onSubmit(): void {
-    if (this.selectedFile) {
-      console.log('File selected:', this.selectedFile.name);
-      // Тут можна обробити завантаження файлу, наприклад, через сервіс.
-    } else {
-      console.log('No file selected');
-    }
+  triggerFileInput(): void {
+    const fileinput = document.getElementById('file-upload') as HTMLInputElement;
+    fileinput.click();
   }
 }
-
-

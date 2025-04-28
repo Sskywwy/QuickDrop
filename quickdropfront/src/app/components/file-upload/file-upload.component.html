@@ -1,18 +1,23 @@
-<!-- file-upload.component.html -->
-<div class="container">
-    <div class="card">
-      <div class="card-header">
-        <h4 style="color: var(--dark-color);">File Upload</h4>
-      </div>
-      <div class="card-body">
-        <form (ngSubmit)="onSubmit()">
-          <div class="form-group">
-            <label for="file">File</label>
-            <input type="file" name="file" id="file" class="form-control" (change)="onFileChange($event)">
-          </div>
-          <button type="submit" class="btn btn-primary">Upload</button>
-        </form>
-      </div>
-    </div>
+<!-- НЕ ДОДАВАЙ HEAD HTML В КОМПОНЕНТИ БО НЕ РАБОТАЄ -->
+
+<main class="main-card">
+  <h1>QuickDrop</h1>
+  <p class="description">Закинув.Скинув.Забув.Quickdrop</p>
+  <div class="upload-file"
+  (click)="triggerFileInput()" 
+  (dragenter)="onDragEnter($event)"
+  (dragover)="onDragOver($event)"
+  (dragleave)="onDragLeave($event)"
+  (drop)="onDrop($event)"
+  [class.dragging]="isDragging">
+    <label for="file-upload" class="file-upload-label">
+      <span class="file-upload-text">Upload file</span>
+      <span class="file-upload-icon">
+        <img src="/svg/download.svg" alt="download-icon" class="icon">  
+      </span>
+    </label>
+    <input type="file" id="file-upload" (change)="onFileSelected($event)" class="file-upload-input">
+    <p class="description" style="font-size: 18px; margin-bottom: 0px;" *ngIf="selectfile">Selected file: {{ selectfile?.name }}</p>
+    <button class="btn" *ngIf="selectfile" (click)="clearFileInput()">Clear</button>
   </div>
-  
+</main>
