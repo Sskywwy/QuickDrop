@@ -19,5 +19,9 @@
     <input type="file" id="file-upload" (change)="onFileSelected($event)" class="file-upload-input">
     <p class="description" style="font-size: 18px; margin-bottom: 0px;" *ngIf="selectfile">Selected file: {{ selectfile?.name }}</p>
     <button class="btn" *ngIf="selectfile" (click)="clearFileInput()">Clear</button>
+    <button class="btn" *ngIf="selectfile" (click)="UploadFile() " [disabled]="!selectfile">Upload</button>
+    <button class="btn" *ngIf="downloadUrl" (click)="CopyLink()">Copy</button>
+    
   </div>
+  
 </main>

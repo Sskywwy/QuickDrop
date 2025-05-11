@@ -17,11 +17,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from QuickDropApp import views
-from QuickDropApp.views import FileUploadView, FileListView, FileDownloadView
+from QuickDropApp.views import FileUploadView, FileListView, FileDownloadView, FileDownload
 urlpatterns = [
     path('admin/', admin.site.urls),
     #path('', views.index,),
     path('api/', include('QuickDropApp.urls')),
     path('', views.index, name='index'),
-    
+    path('download/<int:id>/<str:filename>/', FileDownload.as_view(), name='public-download'),
 ]
